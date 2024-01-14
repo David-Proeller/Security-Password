@@ -1,0 +1,3 @@
+insert into user (username,telephoneNumber,password, salt) values ('dap030905@gmail.com', '+43 677 61201862', '123456', 'FlorianDavid');
+insert into user (username,telephoneNumber,password, salt) values ('fh140406@gmail.com', '+43 677 61201885', '654321', 'FlorianDavid');
+insert into user (username,telephoneNumber,password, salt) values ('jk281005@gmail.com', '+43 677 1234567', '281005', 'FlorianDavid');
