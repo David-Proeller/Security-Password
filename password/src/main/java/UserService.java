@@ -11,7 +11,7 @@ public class UserService {
     }
 
     public void saveUser(final User user){
-        userPersistence.saveUsers(user);
+        userPersistence.createUser(user);
     }
 
     public void changePassword(User user, String password) {
