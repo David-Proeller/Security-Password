@@ -2,19 +2,12 @@ import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.common.constraint.Assert;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import jdk.jfr.ContentType;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 @QuarkusTest
 @Slf4j
@@ -29,11 +22,13 @@ public class UserPersistenceTest {
                 .username("test@gmail.com")
                 .telephoneNumber("+43 557 1234567")
                 .password("Hagi11")
+                .salt(UserPersistence.generateSalt())
                 .build();
         User secondUser = User.builder()
                 .username("test123@gmail.com")
                 .telephoneNumber("+44 783 1234567")
                 .password("Hallo123")
+                .salt(UserPersistence.generateSalt())
                 .build();
         userPersistence.createUser(user);
         userPersistence.createUser(secondUser);

@@ -5,12 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Path("/api/v1/user")
 @Slf4j
@@ -34,7 +28,7 @@ public class UserResource {
     @POST
     public Response createUser(final User user) throws URISyntaxException {
         try{
-            userService.saveUser(user);
+            userService.createUser(user);
             return Response.created(new URI("/api/v1/users/" + user.getUsername())).build();
         }catch (final Exception ex){
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
@@ -44,7 +38,6 @@ public class UserResource {
     @Path("/{username}")
     public Response changePassword(@PathParam("username") final String username,final String password) throws URISyntaxException{
         try{
-
             User user = userService.getUser(username);
             userService.changePassword(user, password);
             return Response.ok().build();

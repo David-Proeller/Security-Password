@@ -10,7 +10,7 @@ public class UserService {
         return userPersistence.getUser(username);
     }
 
-    public void saveUser(final User user){
+    public void createUser(final User user){
         userPersistence.createUser(user);
     }
 

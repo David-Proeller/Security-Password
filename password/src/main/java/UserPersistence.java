@@ -2,6 +2,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -49,11 +50,11 @@ public class UserPersistence {
     }
 
     @Transactional
-    public User updateUser(final User user, final String password){
+    public User updateUser(@Valid final User user, final String password){
         try{
             Pattern pattern = Pattern.compile("^([a-zA-Z]|[0-9]){6,}$");
             Matcher matcherPassword = pattern.matcher(password);
-            if(matcherPassword.matches()){
+            if(matcherPassword.matches()) {
                 user.setPassword(password);
                 String hashedPassword = hashPassword(user.getPassword(), user.getSalt());
                 user.setPassword(hashedPassword);
@@ -62,7 +63,7 @@ public class UserPersistence {
                 if(persistUser != null){
                     return entityManager.merge(user);
                 }
-                throw new RuntimeException("User with username" + username + "not found");
+                throw new RuntimeException(username + "not found");
             }
         }catch (Exception ex){
             log.warn(ex.getMessage());
